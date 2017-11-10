@@ -56,7 +56,9 @@ class FirstCest
 			$I->see($row['Job']);
 			$I->see($row['Firstname']);
 			$I->see($row['Lastname']);
-		}		
+		}
+			
+		mysqli_close($mysqli);
 	}
 
 }

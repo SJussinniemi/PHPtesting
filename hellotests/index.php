@@ -65,6 +65,9 @@ include 'db.php';
 				
 				<?php
 				} 
+				
+				mysqli_close($mysqli);
+				
 				?>
 			</table>
 		</div>	
