@@ -1,5 +1,6 @@
 <?php
-include 'values.php';
+include 'values.php'; 
+include 'db.php';
 ?>
 
 <!DOCTYPE html>
@@ -15,6 +16,8 @@ include 'values.php';
 			
 			echo "Hello world";
 			
+			//phpinfo();
+			
 			function test(){
 				$x = 5;
 				return $x;
@@ -27,7 +30,44 @@ include 'values.php';
 			function returnFalse(){
 				return false;
 			}
+				
 		?>
+		
+		
+		<div>	
+			<table>
+				<tr>
+					<th>Job</th>
+					<th>Firstname</th>
+					<th>Lastname</th>
+				</tr>
+				<?php 
+				
+				$mysqli = new mysqli($server, $username, $password, $database);
+			
+				if ($mysqli->connect_errno) 
+				{
+					echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+				}
+			
+				$res = $mysqli->query("SELECT Job,Firstname,Lastname FROM contact ORDER BY id DESC");
+				
+				for ($row_no = $res->num_rows - 1; $row_no >= 0; $row_no--) 
+				{
+					$res->data_seek($row_no);
+					$row = $res->fetch_assoc();
+					
+				?><tr>
+					<td><?php echo $row['Job'] ?> </td>
+					<td><?php echo $row['Firstname'] ?></td>
+					<td><?php echo $row['Lastname'] ?></td>
+				</tr>
+				
+				<?php
+				} 
+				?>
+			</table>
+		</div>	
 		
 		<h3>Server name: <?php echo $_SERVER["SERVER_NAME"]; ?></h3>
 		<h3><?php echo $name; ?></h3>

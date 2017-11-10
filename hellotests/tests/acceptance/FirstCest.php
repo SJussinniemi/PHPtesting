@@ -39,8 +39,24 @@ class FirstCest
 		$I->click('Update');
 		$I->amOnPage('/results');
 		
-
 	}
 	
+	public function testSeeAllDBItemsOnPage(AcceptanceTester $I)
+	{
+		include 'db.php';
+		$mysqli = new mysqli($server, $username, $password, $database);
+		$res = $mysqli->query("SELECT Job,Firstname,Lastname FROM contact ORDER BY id DESC");
+		
+		for ($row_no = $res->num_rows - 1; $row_no >= 0; $row_no--) 
+		{
+			$res->data_seek($row_no);
+			$row = $res->fetch_assoc();
+			
+			$I->amOnPage('/');
+			$I->see($row['Job']);
+			$I->see($row['Firstname']);
+			$I->see($row['Lastname']);
+		}		
+	}
 
 }

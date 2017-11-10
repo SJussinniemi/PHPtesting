@@ -51,4 +51,5 @@ class ExampleTest extends \Codeception\Test\Unit
 		$numrows = $this->tester->grabNumRecords('contact');
 		$this->assertGreaterThan(0,$numrows);
 	}
+	
 }
